@@ -87,7 +87,7 @@ export const editorCss = `
     width: ${LINE_NUMBER_WIDTH};
     height: 100%;
     text-align: right;
-    color: #999;
+    color: #000;
     z-index: 2;
   }
 
@@ -106,7 +106,7 @@ export const editorCss = `
     top: 0;
     width: ${LINE_NUMBER_WIDTH};
     height: 100%;
-    background: #eee;
+    background: #efefef29;
     z-index: 1;
   }
 `
