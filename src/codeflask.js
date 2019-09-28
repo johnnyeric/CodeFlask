@@ -58,6 +58,7 @@ export default class CodeFlask {
 
   createWrapper () {
     this.code = this.editorRoot.innerHTML
+    this.event = null;
     this.editorRoot.innerHTML = ''
     this.elWrapper = this.createElement('div', this.editorRoot)
     this.elWrapper.classList.add('codeflask')
@@ -161,12 +162,17 @@ export default class CodeFlask {
   listenTextarea () {
     this.elTextarea.addEventListener('input', (e) => {
       this.code = e.target.value
+      this.cursor = e.target.selectionStart
       this.elCode.innerHTML = escapeHtml(e.target.value)
       this.highlight()
       setTimeout(() => {
         this.runUpdate()
         this.setLineNumber()
       }, 1)
+    })
+
+    this.elTextarea.addEventListener('focus', (e) => {
+        e.target.selectionStart = this.cursor
     })
 
     this.elTextarea.addEventListener('keydown', (e) => {
