@@ -62,7 +62,7 @@ export const editorCss = `
   }
 
   .codeflask--has-line-numbers .codeflask__flatten {
-    width: calc(100% - ${LINE_NUMBER_WIDTH});
+    /* width: calc(100% - ${LINE_NUMBER_WIDTH}); */
     left: ${LINE_NUMBER_WIDTH};
   }
 
