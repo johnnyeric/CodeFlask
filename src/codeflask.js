@@ -171,9 +171,9 @@ export default class CodeFlask {
       }, 1)
     })
 
-    /* this.elTextarea.addEventListener('focus', (e) => {
+    this.elTextarea.addEventListener('focus', (e) => {
         e.target.selectionStart = this.cursor
-    }) */
+    })
 
     this.elTextarea.addEventListener('keydown', (e) => {
       this.handleTabs(e)
@@ -344,7 +344,6 @@ export default class CodeFlask {
         case '(':
           closeChar = String.fromCharCode(char.charCodeAt() + 1)
           break
-        case '<':
         case '{':
         case '[':
           closeChar = String.fromCharCode(char.charCodeAt() + 2)
@@ -369,7 +368,7 @@ export default class CodeFlask {
     const selectionStart = this.elTextarea.selectionStart
     const selectionEnd = this.elTextarea.selectionEnd
     const hasSelection = Math.abs(selectionEnd - selectionStart) > 0
-    return [')', '}', ']', '>'].includes(char) || (['\'', '"'].includes(char) && !hasSelection)
+    return [')', '}', ']'].includes(char) || (['\'', '"'].includes(char) && !hasSelection)
   }
 
   updateCode (newCode) {
@@ -379,14 +378,6 @@ export default class CodeFlask {
     this.highlight()
     this.setLineNumber()
     setTimeout(this.runUpdate.bind(this), 1)
-  }
-
-  updateCodeWithoutRunningCallback (newCode) {
-    this.code = newCode
-    this.elTextarea.value = newCode
-    this.elCode.innerHTML = escapeHtml(newCode)
-    this.highlight()
-    this.setLineNumber()
   }
 
   updateLanguage (newLanguage) {
