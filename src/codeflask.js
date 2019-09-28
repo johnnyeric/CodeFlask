@@ -381,6 +381,14 @@ export default class CodeFlask {
     setTimeout(this.runUpdate.bind(this), 1)
   }
 
+  updateCodeWithoutRunningCallback (newCode) {
+    this.code = newCode
+    this.elTextarea.value = newCode
+    this.elCode.innerHTML = escapeHtml(newCode)
+    this.highlight()
+    this.setLineNumber()
+  }
+
   updateLanguage (newLanguage) {
     const oldLanguage = this.opts.language
     this.elCode.classList.remove(`language-${oldLanguage}`)
