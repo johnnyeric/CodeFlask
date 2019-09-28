@@ -58,7 +58,7 @@ export default class CodeFlask {
 
   createWrapper () {
     this.code = this.editorRoot.innerHTML
-    this.event = null;
+    this.cursor = null;
     this.editorRoot.innerHTML = ''
     this.elWrapper = this.createElement('div', this.editorRoot)
     this.elWrapper.classList.add('codeflask')
@@ -171,9 +171,9 @@ export default class CodeFlask {
       }, 1)
     })
 
-    this.elTextarea.addEventListener('focus', (e) => {
+    /* this.elTextarea.addEventListener('focus', (e) => {
         e.target.selectionStart = this.cursor
-    })
+    }) */
 
     this.elTextarea.addEventListener('keydown', (e) => {
       this.handleTabs(e)
@@ -265,8 +265,8 @@ export default class CodeFlask {
 
   handleSelfClosingCharacters (e) {
     if (!this.opts.handleSelfClosingCharacters) return
-    const openChars = ['(', '[', '{', '<', '\'', '"']
-    const closeChars = [')', ']', '}', '>', '\'', '"']
+    const openChars = ['(', '[', '{', '\'', '"']
+    const closeChars = [')', ']', '}', '\'', '"']
     const key = e.key
 
     if (!openChars.includes(key) && !closeChars.includes(key)) {
@@ -286,11 +286,6 @@ export default class CodeFlask {
 
       case '{':
       case '}':
-        this.closeCharacter(key)
-        break
-
-      case '<':
-      case '>':
         this.closeCharacter(key)
         break
 
