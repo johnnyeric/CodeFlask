@@ -182,6 +182,10 @@ export default class CodeFlask {
       this.handleNewLineIndentation(e)
     })
 
+    this.elTextarea.addEventListener('mousedown', (e) => {
+      this.mouseDownCallback(e);
+    });
+
     this.elTextarea.addEventListener('scroll', (e) => {
       this.elPre.style.transform = `translate3d(-${e.target.scrollLeft}px, -${e.target.scrollTop}px, 0)`
       if (this.elLineNumbers) {
@@ -406,6 +410,14 @@ export default class CodeFlask {
     }
 
     this.keyDownCallBack = callback
+  }
+
+  onMouseDown (callback) {
+    if (callback && {}.toString.call(callback) !== '[object Function]') {
+      throw Error('CodeFlask expects callback of type Function')
+    }
+
+    this.mouseDownCallBack = callback
   }
 
   getCode () {
