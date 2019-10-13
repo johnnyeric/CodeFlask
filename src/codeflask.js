@@ -348,8 +348,7 @@ export default class CodeFlask {
     } else {
       const skipChar = this.code.substr(selectionEnd, 1) === char
       const newSelectionEnd = skipChar ? selectionEnd + 1 : selectionEnd
-      const closeChar = !skipChar ? char : ''
-      const newCode = `${this.code.substring(0, selectionStart)}${closeChar}${this.code.substring(newSelectionEnd)}`
+      const newCode = `${this.code.substring(0, selectionStart)}${this.code.substring(newSelectionEnd)}`
       this.updateCode(newCode)
       this.elTextarea.selectionEnd = ++this.elTextarea.selectionStart
     }
