@@ -176,6 +176,7 @@ export default class CodeFlask {
     })
 
     this.elTextarea.addEventListener('keydown', (e) => {
+      this.keyDownCallBack(e);
       this.handleTabs(e)
       this.handleSelfClosingCharacters(e)
       this.handleNewLineIndentation(e)
@@ -265,8 +266,8 @@ export default class CodeFlask {
 
   handleSelfClosingCharacters (e) {
     if (!this.opts.handleSelfClosingCharacters) return
-    const openChars = ['(', '[', '{', '\'', '"']
-    const closeChars = [')', ']', '}', '\'', '"']
+    const openChars = ['(', '[', '{']
+    const closeChars = [')', ']', '}']
     const key = e.key
 
     if (!openChars.includes(key) && !closeChars.includes(key)) {
@@ -286,14 +287,6 @@ export default class CodeFlask {
 
       case '{':
       case '}':
-        this.closeCharacter(key)
-        break
-
-      case '\'':
-        this.closeCharacter(key)
-        break
-
-      case '"':
         this.closeCharacter(key)
         break
     }
@@ -355,7 +348,7 @@ export default class CodeFlask {
     } else {
       const skipChar = this.code.substr(selectionEnd, 1) === char
       const newSelectionEnd = skipChar ? selectionEnd + 1 : selectionEnd
-      const closeChar = !skipChar && ['\'', '"'].includes(char) ? char : ''
+      const closeChar = !skipChar ? char : ''
       const newCode = `${this.code.substring(0, selectionStart)}${closeChar}${this.code.substring(newSelectionEnd)}`
       this.updateCode(newCode)
       this.elTextarea.selectionEnd = ++this.elTextarea.selectionStart
@@ -368,7 +361,7 @@ export default class CodeFlask {
     const selectionStart = this.elTextarea.selectionStart
     const selectionEnd = this.elTextarea.selectionEnd
     const hasSelection = Math.abs(selectionEnd - selectionStart) > 0
-    return [')', '}', ']'].includes(char) || (['\'', '"'].includes(char) && !hasSelection)
+    return [')', '}', ']'].includes(char) || !hasSelection
   }
 
   updateCode (newCode) {
@@ -406,6 +399,14 @@ export default class CodeFlask {
     }
 
     this.updateCallBack = callback
+  }
+
+  onKeyDown (callback) {
+    if (callback && {}.toString.call(callback) !== '[object Function]') {
+      throw Error('CodeFlask expects callback of type Function')
+    }
+
+    this.keyDownCallBack = callback
   }
 
   getCode () {
