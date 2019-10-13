@@ -360,8 +360,8 @@ export default class CodeFlask {
   skipCloseChar (char) {
     const selectionStart = this.elTextarea.selectionStart
     const selectionEnd = this.elTextarea.selectionEnd
-    const hasSelection = Math.abs(selectionEnd - selectionStart) > 0
-    return [')', '}', ']'].includes(char) || !hasSelection
+    // const hasSelection = Math.abs(selectionEnd - selectionStart) > 0
+    return [')', '}', ']'].includes(char)
   }
 
   updateCode (newCode) {
