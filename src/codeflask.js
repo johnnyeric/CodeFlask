@@ -183,7 +183,7 @@ export default class CodeFlask {
     })
 
     this.elTextarea.addEventListener('mousedown', (e) => {
-      this.mouseDownCallback(e);
+      this.mouseDownCallBack(e);
     });
 
     this.elTextarea.addEventListener('scroll', (e) => {
